@@ -192,7 +192,7 @@ class FashionCLIP:
         with torch.no_grad():
             for batch in dataloader:
                 batch = {k:v.to(self.device) for k,v in batch.items()}
-                image_embeddings.extend(self.model.get_image_features(**batch).detach().cpu().numpy())
+                image_embeddings.extend(self.model.get_image_features(**batch).pooler_output.detach().cpu().numpy())
                 pbar.update(1)
             pbar.close()
         return np.stack(image_embeddings)
