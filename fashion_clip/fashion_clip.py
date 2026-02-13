@@ -210,7 +210,7 @@ class FashionCLIP:
         with torch.no_grad():
             for batch in dataloader:
                 batch = {k: v.to(self.device) for k, v in batch.items()}
-                text_embeddings.extend(self.model.get_text_features(**batch).detach().cpu().numpy())
+                text_embeddings.extend(self.model.get_text_features(**batch).pooler_output.detach().cpu().numpy())
                 pbar.update(1)
             pbar.close()
         return np.stack(text_embeddings)
